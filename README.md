@@ -1,56 +1,43 @@
-# Flask
-A minimal [Flask](https://flask.palletsprojects.com/) web application, served by [Gunicorn](https://docs.gunicorn.org/), and ready to deploy on [Railway](https://railway.app/?referralCode=alphasec) or Vercel.
+# Flask on Railway
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/igzwwg?referralCode=alphasec)
+Flask — lightweight Python web framework served by Gunicorn. Deploy on Railway with one click.
 
-## Stack
- 
-- **[Flask](https://flask.palletsprojects.com/)** — Python web framework
-- **[Gunicorn](https://docs.gunicorn.org/)** — production WSGI server
-- **[Bootstrap 4](https://getbootstrap.com/docs/4.6/)** — frontend styling
- 
-## Project Structure
- 
-```
-├── main.py              # App entry point and route definitions
-├── templates/
-│   └── index.html       # Jinja2 HTML template
-├── static/
-│   └── css/styles.css   # Custom styles
-├── requirements.txt     # Python dependencies
-├── Procfile             # Railway / Heroku process definition
-└── vercel.json          # Vercel deployment config
-```
- 
-## Run Locally
- 
-```bash
-# Clone the repo
-git clone https://github.com/alphasecio/flask.git
-cd flask
- 
-# Install dependencies
-pip install -r requirements.txt
- 
-# Start the development server
-python main.py
-```
- 
-The app will be available at `http://localhost:5000`.
- 
-## Deploy to Railway / Vercel
- 
-* **Railway** — click the button above, or follow the [step-by-step guide](https://alphasec.io/how-to-deploy-a-python-flask-app-on-railway/).
-* **Vercel** — `vercel.json` is included for zero-config deployment via the Vercel CLI or GitHub integration.
- 
-## Extending This Template
- 
-Add new routes in `main.py`:
- 
+[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new/template/FLASK_TEMPLATE_CODE)
+
+## Features
+
+- **Minimal and flexible** — Build web apps and APIs with just the pieces you need.
+- **Gunicorn production server** — Production-grade WSGI server, not Flask's dev server.
+- **Jinja2 templating** — Server-side HTML rendering with Bootstrap 4 styling included.
+- **Auto-deploy from GitHub** — Push code, Railway rebuilds and redeploys automatically.
+- **Environment variables** — Manage secrets and config through Railway's dashboard.
+
+## How to use
+
+1. Click the **Deploy on Railway** button above.
+2. Wait for the build to finish (~30 seconds).
+3. Open your Railway domain to see the default landing page.
+4. Edit `main.py` to add routes, push to GitHub, and Railway redeploys.
+
+## Adding Routes
+
 ```python
-@app.route('/about')
-def about():
-    return render_template('about.html')
+@app.route('/api/hello')
+def hello():
+    return {"message": "Hello, world!"}
 ```
- 
-Add Python packages to `requirements.txt` and they'll be installed automatically on the next deploy.
+
+## Environment Variables
+
+| Variable | Description |
+|----------|-------------|
+| `PORT` | Auto-set by Railway |
+| `FLASK_ENV` | Set to `production` for production mode |
+| `SECRET_KEY` | App secret key (set in Railway dashboard) |
+
+## Notes
+
+- This template uses Railpack (no Dockerfile) — Railway auto-detects Python from `requirements.txt`.
+- Gunicorn serves the app via the `Procfile`: `web: gunicorn main:app`.
+- Add Python packages to `requirements.txt` and they'll be installed on the next deploy.
+- For database support, add a PostgreSQL plugin in Railway and use `os.environ.get("DATABASE_URL")`.
